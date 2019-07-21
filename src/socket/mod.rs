@@ -57,7 +57,7 @@ pub(crate) use self::ref_::Session as SocketSession;
 
 /// Gives an indication on the next time the socket should be polled.
 #[derive(Debug, PartialOrd, Ord, PartialEq, Eq, Clone, Copy)]
-pub(crate) enum PollAt {
+pub enum PollAt {
     /// The socket needs to be polled immidiately.
     Now,
     /// The socket needs to be polled at given [Instant][struct.Instant].
@@ -129,7 +129,7 @@ impl<'a, 'b> Socket<'a, 'b> {
         self.meta().handle
     }
 
-    pub(crate) fn meta(&self) -> &SocketMeta {
+    pub fn meta(&self) -> &SocketMeta {
         dispatch_socket!(self, |socket| &socket.meta)
     }
 
@@ -137,7 +137,7 @@ impl<'a, 'b> Socket<'a, 'b> {
         dispatch_socket!(mut self, |socket| &mut socket.meta)
     }
 
-    pub(crate) fn poll_at(&self) -> PollAt {
+    pub fn poll_at(&self) -> PollAt {
         dispatch_socket!(self, |socket| socket.poll_at())
     }
 }

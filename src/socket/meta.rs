@@ -32,7 +32,7 @@ impl Default for NeighborState {
 pub struct Meta {
     /// Handle of this socket within its enclosing `SocketSet`.
     /// Mainly useful for debug output.
-    pub(crate) handle: SocketHandle,
+    pub handle: SocketHandle,
     /// See [NeighborState](struct.NeighborState.html).
     neighbor_state:    NeighborState,
 }
@@ -44,7 +44,7 @@ impl Meta {
     /// See also `iface::NeighborCache::SILENT_TIME`.
     pub(crate) const DISCOVERY_SILENT_TIME: Duration = Duration { millis: 3_000 };
 
-    pub(crate) fn poll_at<F>(&self, socket_poll_at: PollAt, has_neighbor: F) -> PollAt 
+    pub(crate) fn poll_at<F>(&self, socket_poll_at: PollAt, has_neighbor: F) -> PollAt
         where F: Fn(IpAddress) -> bool
     {
         match self.neighbor_state {

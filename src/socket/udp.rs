@@ -213,7 +213,7 @@ impl<'a, 'b> UdpSocket<'a, 'b> {
         Ok((length, endpoint))
     }
 
-    pub(crate) fn accepts(&self, ip_repr: &IpRepr, repr: &UdpRepr) -> bool {
+    pub fn accepts(&self, ip_repr: &IpRepr, repr: &UdpRepr) -> bool {
         if self.endpoint.port != repr.dst_port { return false }
         if !self.endpoint.addr.is_unspecified() &&
             self.endpoint.addr != ip_repr.dst_addr() &&
@@ -223,7 +223,7 @@ impl<'a, 'b> UdpSocket<'a, 'b> {
         true
     }
 
-    pub(crate) fn process(&mut self, ip_repr: &IpRepr, repr: &UdpRepr) -> Result<()> {
+    pub fn process(&mut self, ip_repr: &IpRepr, repr: &UdpRepr) -> Result<()> {
         debug_assert!(self.accepts(ip_repr, repr));
 
         let size = repr.payload.len();
@@ -237,7 +237,7 @@ impl<'a, 'b> UdpSocket<'a, 'b> {
         Ok(())
     }
 
-    pub(crate) fn dispatch<F>(&mut self, emit: F) -> Result<()>
+    pub fn dispatch<F>(&mut self, emit: F) -> Result<()>
             where F: FnOnce((IpRepr, UdpRepr)) -> Result<()> {
         let handle    = self.handle();
         let endpoint  = self.endpoint;
